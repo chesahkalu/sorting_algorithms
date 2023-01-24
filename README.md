@@ -5,6 +5,7 @@ In this project I learnt and practiced;
 - What is the Big O notation, and how to evaluate the time complexity of an algorithm
 - How to select the best sorting algorithm for a given input
 - What is a stable sorting algorithm
+
 I went ahead to implement 12 different sorting algorithms in 12 files.
 
 ## Tasks file descriptions:
@@ -124,4 +125,3 @@ doubly-linked list as a helper function for the sorting functions.
   doubly-linked list deck of cards.
   * Assumes that there are exactly `52` elements in the doubly-linked list.
   * Orders the deck from spades to diamonds and from aces to kings.
-
