@@ -1,74 +1,51 @@
 #include "sort.h"
 
-void swap_ints(int *a, int *b);
-void max_heapify(int *array, size_t size, size_t base, size_t root);
-void heap_sort(int *array, size_t size);
-
 /**
- * swap_ints - Swap two integers in an array.
- * @a: The first integer to swap.
- * @b: The second integer to swap.
- */
-void swap_ints(int *a, int *b)
+* stupify - recurrssive heapfiy function
+* @array: Array to sort
+* @heap: size of heap data
+* @i: index
+* @size: size of array
+*/
+
+void stupify(int *array, int heap, int i, int size)
 {
-	int tmp;
+	int lar = i, left = 2 * i + 1, right = 2 * i + 2, t;
 
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
-}
-
-/**
- * max_heapify - Turn a binary tree into a complete binary heap.
- * @array: An array of integers representing a binary tree.
- * @size: The size of the array/tree.
- * @base: The index of the base row of the tree.
- * @root: The root node of the binary tree.
- */
-void max_heapify(int *array, size_t size, size_t base, size_t root)
-{
-	size_t left, right, large;
-
-	left = 2 * root + 1;
-	right = 2 * root + 2;
-	large = root;
-
-	if (left < base && array[left] > array[large])
-		large = left;
-	if (right < base && array[right] > array[large])
-		large = right;
-
-	if (large != root)
+	if (left < heap && array[left] > array[lar])
+		lar = left;
+	if (right < heap && array[right] > array[lar])
+		lar = right;
+	if (lar != i)
 	{
-		swap_ints(array + root, array + large);
+		t = array[i], array[i] = array[lar], array[lar] = t;
 		print_array(array, size);
-		max_heapify(array, size, base, large);
+		stupify(array, heap, lar, size);
 	}
 }
 
 /**
- * heap_sort - Sort an array of integers in ascending
- *             order using the heap sort algorithm.
- * @array: An array of integers.
- * @size: The size of the array.
- *
- * Description: Implements the sift-down heap sort
- * algorithm. Prints the array after each swap.
- */
+* heap_sort - Sorts array with heap sort algo
+* @array: array to sort
+* @size: Size of array to sort
+*/
+
 void heap_sort(int *array, size_t size)
 {
-	int i;
+	int i = size / 2 - 1, temp;
 
 	if (array == NULL || size < 2)
 		return;
-
-	for (i = (size / 2) - 1; i >= 0; i--)
-		max_heapify(array, size, size, i);
-
-	for (i = size - 1; i > 0; i--)
+	for (; i >= 0; i--)
+		stupify(array, size, i, size);
+	for (i = size - 1; i >= 0; i--)
 	{
-		swap_ints(array, array + i);
-		print_array(array, size);
-		max_heapify(array, size, i, 0);
+		temp = array[0];
+		array[0] = array[i];
+		array[i] = temp;
+		if (i > 0)
+			print_array(array, size);
+		stupify(array, i, 0, size);
 	}
+
 }
